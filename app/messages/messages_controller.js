@@ -9,6 +9,11 @@
                 const data = angular.fromJson(json);
                 vm.message = data;
             }
+
+            vm.toggleStar = function(messages) {
+                messages.starred = !messages.starred
+                console.log(messages)
+            }
         }
     }
     ());
