@@ -1,9 +1,9 @@
 (function() {
     'use strict';
     angular.module('angular-inbox', )
-        .controller('messageListController', messageListController)
+        .controller('messagesController', messagesController)
 
-    function messageListController() {
+    function messagesController() {
         console.log("messages")
     }
 }());

@@ -1,8 +1,8 @@
 (function() {
     'use strict';
     angular.module('angular-inbox', )
-        .component('messageList', {
-            controller: 'messageListController',
-            templateUrl: 'app/messageList/messageList_template.html'
+        .component('messages', {
+            controller: 'messagesController',
+            templateUrl: 'app/messages/messages_template.html'
         })
 }());
