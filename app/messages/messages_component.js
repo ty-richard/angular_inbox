@@ -3,6 +3,9 @@
     angular.module('angular-inbox', )
         .component('messages', {
             controller: 'messagesController',
-            templateUrl: 'app/messages/messages_template.html'
+            templateUrl: 'app/messages/messages_template.html',
+            bindings: {
+                datamsg: '<'
+            }
         })
 }());

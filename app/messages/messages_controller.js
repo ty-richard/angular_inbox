@@ -5,15 +5,13 @@
 
         function messagesController() {
             const vm = this;
-            vm.$onInit = function() {
-                const data = angular.fromJson(json);
-                vm.message = data;
-            }
-
             vm.toggleStar = function(messages) {
                 messages.starred = !messages.starred
+            };
+            vm.checkedMessage = function(selected, messages) {
+                messages.selected = selected
                 console.log(messages)
-            }
+            };
         }
     }
     ());

@@ -4,6 +4,11 @@
         .controller('inboxController', inboxController)
 
     function inboxController() {
-        console.log("inbox")
+        const vm = this;
+        vm.$onInit = function() {
+            const data = angular.fromJson(json);
+            vm.messages = data;
+            console.log(data)
+        }
     }
 }());

@@ -4,8 +4,8 @@
             <span class="badge badge">2</span> unread messages
         </p>
 
-        <button class="btn btn-default" ng-click="toggleAll(messages)">
-         <i ng-class="{'fa fa-minus-square-o': messages.selected, 'fa fa-plus-square-o': !messages.selected}"></i>
+        <button class="btn btn-default" ng-click="$ctrl.toggleAll($ctrl.databar)">
+         <i ng-class="{'fa fa-minus-square-o': true}"></i>
         </button>
 
         <button class="btn btn-default">Mark As Read</button>

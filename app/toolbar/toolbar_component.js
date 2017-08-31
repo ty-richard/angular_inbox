@@ -3,6 +3,9 @@
     angular.module('angular-inbox', )
         .component('toolbar', {
             controller: 'toolbarController',
-            templateUrl: 'app/toolbar/toolbar_template.html'
+            templateUrl: 'app/toolbar/toolbar_template.html',
+            bindings: {
+                databar: '<'
+            }
         })
 }());

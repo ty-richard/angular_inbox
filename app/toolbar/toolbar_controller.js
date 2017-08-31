@@ -5,15 +5,16 @@
 
         function toolbarController() {
             const vm = this;
-            vm.toggleAll = function(message) {
-                var toggleStatus = !$scope.isAllSelected;
-                angular.forEach($scope.options, function(itm) { itm.selected = toggleStatus; });
-
+            vm.$onInit = function() {
+                console.log(vm)
             }
-
-            $scope.optionToggled = function() {
-                $scope.isAllSelected = $scope.options.every(function(itm) { return itm.selected; })
+            vm.toggleAll = function(messages) {
+                for (var i = 0; i < messages.length; i++) {
+                    messages[i].selected = true
+                }
+                messages[i].selected.every(selected)
             }
         }
     }
-    ());
+    ()
+);
