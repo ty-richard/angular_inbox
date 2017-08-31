@@ -5,7 +5,7 @@
         </p>
 
         <button class="btn btn-default" ng-click="$ctrl.toggleAll($ctrl.databar)">
-         <i ng-class="{'fa fa-minus-square-o': true}"></i>
+         <i ng-class="{'fa fa-check-square-o': $ctrl.allSelected($ctrl.databar), 'fa fa-square-o': $ctrl.someSelected($ctrl.databar)}"></i>
         </button>
 
         <button class="btn btn-default">Mark As Read</button>
