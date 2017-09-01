@@ -10,19 +10,83 @@
             }
             vm.allSelected = function(messages) {
                 return status = messages.every(function(data) {
-                    return data.selected == true
+                    let counting = 0;
+                    for (var i = 0; i < messages.length; i++) {
+                        if (messages[i].selected) {
+                            counting++
+                        }
+                    }
+                    if (counting === messages.length) {
+                        return true
+                    } else {
+                        return false
+                    }
                 })
             }
             vm.someSelected = function(messages) {
                 return status = messages.every(function(data) {
-                    return data.selected == false
+                    let counting = 0;
+                    for (var i = 0; i < messages.length; i++) {
+                        if (messages[i].selected) {
+                            counting++
+                        }
+                    }
+                    if (counting < messages.length && counting > 0) {
+                        return true
+                    } else {
+                        return false
+                    }
+                })
+            }
+            vm.noneSelected = function(messages) {
+                return status = messages.every(function(data) {
+                    let counting = 0;
+                    for (var i = 0; i < messages.length; i++) {
+                        if (messages[i].selected) {
+                            counting++
+                        }
+                    }
+                    if (counting === 0) {
+                        return true
+                    } else {
+                        return false
+                    }
                 })
             }
             vm.toggleAll = function(messages) {
-                for (var i = 0; i < messages.length; i++) {
-                    messages[i].selected = true
-                }
+                return status = messages.every(function(data) {
+                    let counting = 0;
+                    for (var i = 0; i < messages.length; i++) {
+                        if (messages[i].selected) {
+                            counting++
+                        }
+                    }
+                    if (counting < 8) {
+                        for (var i = 0; i < messages.length; i++) {
+                            messages[i].selected = true
+                        }
+                    } else {
+                        for (var i = 0; i < messages.length; i++) {
+                            messages[i].selected = false
+                        }
+                    }
 
+                })
+            }
+            vm.toggleNone = function(messages) {
+                for (var i = 0; i < messages.length; i++) {
+                    messages[i].selected = false
+                    console.log(messages)
+                }
+            }
+            vm.countSelected = function(messages) {
+                let counting = 0;
+                for (var i = 0; i < messages.length; i++) {
+                    if (messages[i].selected) {
+                        counting++
+                    }
+                }
+                return counting
             }
         }
     }

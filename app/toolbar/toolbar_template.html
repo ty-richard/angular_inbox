@@ -4,30 +4,29 @@
             <span class="badge badge">2</span> unread messages
         </p>
 
-        <button class="btn btn-default" ng-click="$ctrl.toggleAll($ctrl.databar)">
-         <i ng-class="{'fa fa-check-square-o': $ctrl.allSelected($ctrl.databar), 'fa fa-square-o': $ctrl.someSelected($ctrl.databar)}"></i>
+        <button class="btn btn-default" ng-class="$ctrl.countSelected($ctrl.databar)" ng-click="$ctrl.toggleAll($ctrl.databar)">
+         <i ng-class="{'fa fa-minus-square-o': $ctrl.allSelected($ctrl.databar), 'fa fa-check-square-o': $ctrl.someSelected($ctrl.databar), 'fa fa-square-o': $ctrl.noneSelected($ctrl.databar)}"></i>
         </button>
-
         <button class="btn btn-default">Mark As Read</button>
 
-        <button class="btn btn-default">Mark As Unread</button>
+        <button class=" btn btn-default ">Mark As Unread</button>
 
-        <select class="form-control label-select">
+        <select class="form-control label-select ">
         <option>Apply label</option>
-        <option value="dev">dev</option>
-        <option value="personal">personal</option>
-        <option value="gschool">gschool</option>
+        <option value="dev ">dev</option>
+        <option value="personal ">personal</option>
+        <option value="gschool ">gschool</option>
       </select>
 
-        <select class="form-control label-select">
+        <select class="form-control label-select ">
         <option>Remove label</option>
-        <option value="dev">dev</option>
-        <option value="personal">personal</option>
-        <option value="gschool">gschool</option>
+        <option value="dev ">dev</option>
+        <option value="personal ">personal</option>
+        <option value="gschool ">gschool</option>
       </select>
 
-        <button class="btn btn-default">
-        <i class="fa fa-trash-o"></i>
+        <button class="btn btn-default ">
+        <i class="fa fa-trash-o "></i>
       </button>
     </div>
 </div>
