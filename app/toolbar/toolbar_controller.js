@@ -88,6 +88,20 @@
                 }
                 return counting
             }
+            vm.markRead = function(messages) {
+                for (var i = 0; i < messages.length; i++) {
+                    if (messages[i].selected) {
+                        messages[i].read = true
+                    } else { messages[i].read = false }
+                }
+            }
+            vm.markUnread = function(messages) {
+                for (var i = 0; i < messages.length; i++) {
+                    if (messages[i].selected) {
+                        messages[i].read = false
+                    } else { messages[i].read = true }
+                }
+            }
         }
     }
     ()

@@ -7,9 +7,9 @@
         <button class="btn btn-default" ng-class="$ctrl.countSelected($ctrl.databar)" ng-click="$ctrl.toggleAll($ctrl.databar)">
          <i ng-class="{'fa fa-minus-square-o': $ctrl.allSelected($ctrl.databar), 'fa fa-check-square-o': $ctrl.someSelected($ctrl.databar), 'fa fa-square-o': $ctrl.noneSelected($ctrl.databar)}"></i>
         </button>
-        <button class="btn btn-default">Mark As Read</button>
+        <button class="btn btn-default" ng-click="$ctrl.markRead($ctrl.databar)">Mark As Read</button>
 
-        <button class=" btn btn-default ">Mark As Unread</button>
+        <button class="btn btn-default" ng-click="$ctrl.markUnread($ctrl.databar)">Mark As Unread</button>
 
         <select class="form-control label-select ">
         <option>Apply label</option>
