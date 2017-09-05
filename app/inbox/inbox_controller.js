@@ -3,12 +3,14 @@
     angular.module('angular-inbox', )
         .controller('inboxController', inboxController)
 
-    function inboxController() {
+    function inboxController($http) {
         const vm = this;
         vm.$onInit = function() {
-            const data = angular.fromJson(json);
-            vm.messages = data;
-            console.log(data)
+            const url = "https://salty-inlet-68026.herokuapp.com/api"
+            $http.get(url + "/messages").then(function(messages) {
+                vm.messages = messages.data._embedded.messages
+                console.log(messages.data._embedded.messages)
+            })
         }
     }
 }());
