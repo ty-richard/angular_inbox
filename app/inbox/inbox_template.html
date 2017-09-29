@@ -1,2 +1,3 @@
-<toolbar databar="$ctrl.messages"></toolbar>
+<toolbar datamsgs="$ctrl.messages"></toolbar>
+<newdraft formshow= "$ctrl.formshow" formcontents="$ctrl.messages" ng-show="$ctrl.formshow.showvalue"></newdraft>
 <messages ng-repeat="messages in $ctrl.messages" datamsg="messages"></messages>

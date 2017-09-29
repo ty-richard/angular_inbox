@@ -6,103 +6,160 @@
         function toolbarController() {
             const vm = this;
             vm.$onInit = function() {
-                console.log(vm)
+
+            vm.formcontrol = function(form) {
+              form = vm.formshow.showvalue;
+              vm.formshow.showvalue = !vm.formshow.showvalue;
             }
             vm.allSelected = function(messages) {
+              if (messages !== undefined) {
                 return status = messages.every(function(data) {
-                    let counting = 0;
-                    for (var i = 0; i < messages.length; i++) {
-                        if (messages[i].selected) {
-                            counting++
-                        }
-                    }
-                    if (counting === messages.length) {
-                        return true
-                    } else {
-                        return false
-                    }
+                  return data.selected == true;
                 })
+              }
             }
             vm.someSelected = function(messages) {
-                return status = messages.every(function(data) {
-                    let counting = 0;
-                    for (var i = 0; i < messages.length; i++) {
-                        if (messages[i].selected) {
-                            counting++
-                        }
-                    }
-                    if (counting < messages.length && counting > 0) {
-                        return true
-                    } else {
-                        return false
-                    }
+              if (messages !== undefined) {
+                const someMsgs = messages.some(function(data) {
+                  return data.selected == true;
                 })
-            }
-            vm.noneSelected = function(messages) {
-                return status = messages.every(function(data) {
-                    let counting = 0;
-                    for (var i = 0; i < messages.length; i++) {
-                        if (messages[i].selected) {
-                            counting++
-                        }
-                    }
-                    if (counting === 0) {
-                        return true
-                    } else {
-                        return false
-                    }
+                const allMsgs = messages.every(function(data) {
+                  return data.selected == true;
                 })
+                return someMsgs && !allMsgs;
+              }
             }
-            vm.toggleAll = function(messages) {
+            vm.allNotSelected = function(messages) {
+              if (messages !== undefined) {
                 return status = messages.every(function(data) {
-                    let counting = 0;
-                    for (var i = 0; i < messages.length; i++) {
-                        if (messages[i].selected) {
-                            counting++
-                        }
-                    }
-                    if (counting < 8) {
-                        for (var i = 0; i < messages.length; i++) {
-                            messages[i].selected = true
-                        }
-                    } else {
-                        for (var i = 0; i < messages.length; i++) {
-                            messages[i].selected = false
-                        }
-                    }
+                  return data.selected !== true;
+                })
+              }
+            }
+          }
+          vm.markAsRead = function(messages) {
+            let arrayOfIds = [];
+            if (messages !== undefined) {
+              for (let i = 0; i < messages.length; i++) {
+                if (messages[i].selected) {
+                  messages[i].read = true;
+                  arrayOfIds.push(messages[i].id)
+                  let body = {
+                    messageIds: arrayOfIds,
+                    command: 'read',
+                    read: true
+                  };
+                  $http.patch(url, JSON.stringify(body))
+                    .then(function(response) {});
+                }
+              }
+            }
+          }
+          vm.markAsUnRead = function(messages) {
+            let arrayOfIds = [];
+            if (messages !== undefined) {
+              for (let i = 0; i < messages.length; i++) {
+                if (messages[i].selected) {
+                  messages[i].read = false;
+                  arrayOfIds.push(messages[i].id)
+                  let body = {
+                    messageIds: arrayOfIds,
+                    command: 'read',
+                    read: false
+                  };
+                  $http.patch(url, JSON.stringify(body))
+                    .then(function(response) {});
+                }
+              }
+            }
+          }
+          vm.addLabel = function(messages, label) {
+            let arrayOfIds = [];
+            if (messages !== undefined) {
+              for (let i = 0; i < messages.length; i++) {
+                let labelExist = messages[i].labels.includes(label);
+                if (messages[i].selected && !labelExist) {
+                  messages[i].labels.push(label);
+                  arrayOfIds.push(messages[i].id)
+                }
+              }
+              let body = {
+                messageIds: arrayOfIds,
+                command: 'addLabel',
+                label: label
+              };
+              $http.patch(url, JSON.stringify(body))
+                .then(function(response) {});
+            }
+          }
+          vm.removeLabel = function(messages, label) {
+            let arrayOfIds = [];
+            if (messages !== undefined) {
+              for (let i = 0; i < messages.length; i++) {
+                if (messages[i].selected) {
+                  let index = messages[i].labels.indexOf(label);
+                  if (index > -1) {
 
-                })
-            }
-            vm.toggleNone = function(messages) {
-                for (var i = 0; i < messages.length; i++) {
-                    messages[i].selected = false
-                    console.log(messages)
+                    arrayOfIds.push(messages[i].id)
+                    messages[i].labels.splice(index, 1);
+                  }
                 }
+              }
+              let body = {
+                messageIds: arrayOfIds,
+                command: 'removeLabel',
+                label: label
+              };
+              $http.patch(url, JSON.stringify(body))
+                .then(function(response) {});
             }
-            vm.countSelected = function(messages) {
-                let counting = 0;
-                for (var i = 0; i < messages.length; i++) {
-                    if (messages[i].selected) {
-                        counting++
-                    }
+          }
+          vm.changeSelect = function(messages) {
+            if (messages !== undefined) {
+              if (vm.allSelected(messages)) {
+                for (let i = 0; i < messages.length; i++) {
+                  messages[i].selected = false;
                 }
-                return counting
-            }
-            vm.markRead = function(messages) {
-                for (var i = 0; i < messages.length; i++) {
-                    if (messages[i].selected) {
-                        messages[i].read = true
-                    } else { messages[i].read = false }
+              } else if (vm.someSelected(messages)) {
+                for (let i = 0; i < messages.length; i++) {
+                  messages[i].selected = true;
                 }
-            }
-            vm.markUnread = function(messages) {
-                for (var i = 0; i < messages.length; i++) {
-                    if (messages[i].selected) {
-                        messages[i].read = false
-                    } else { messages[i].read = true }
+              } else if (vm.allNotSelected(messages)) {
+                for (let i = 0; i < messages.length; i++) {
+                  messages[i].selected = true;
                 }
+              }
             }
+          }
+          vm.countUnreadMessages = function(messages) {
+            if (messages !== undefined) {
+              let count = 0;
+              for (let i = 0; i < messages.length; i++) {
+                if (messages[i].read == false) {
+                  count++;
+                }
+              }
+              return count;
+            }
+          }
+          vm.deleteMessage = function(messages) {
+            let arrayOfIds = [];
+            if (messages !== undefined) {
+              for (let i = 0; i < messages.length; i++) {
+                if (messages[i].selected) {
+                  arrayOfIds.push(messages[i].id)
+                  let body = {
+                    messageIds: arrayOfIds,
+                    command: 'delete'
+                  };
+                  $http.patch(url, JSON.stringify(body))
+                    .then(function(response) {});
+                  messages.splice(i, 1);
+                  i--;
+                }
+              }
+            }
+          }
         }
-    }
-    ()
-);
+
+}());
